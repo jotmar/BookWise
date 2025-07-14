@@ -1,0 +1,26 @@
+{
+  "dependencies": {
+    "dotenv": "17.2.0",
+    "fastify": "5.4.0",
+    "zod": "4.0.5"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.1.1",
+    "@types/node": "24.0.13",
+    "tsup": "8.5.0",
+    "tsx": "4.20.3",
+    "typescript": "5.8.3"
+  },
+  "name": "bookwise",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "npx tsx watch ./src/server.ts",
+    "start": "node ./build/server.js",
+    "build": "npx tsup"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

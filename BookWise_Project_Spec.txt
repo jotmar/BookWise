@@ -1,0 +1,65 @@
+Project Name: BookWise - Simple Book Lending System
+
+Description:
+BookWise is a basic back-end system that simulates a library's book lending process. Users can register, browse books, borrow available books, and return them. The system tracks which user has which book and prevents over-borrowing.
+
+---
+
+Business Rules:
+1. A user must be registered to borrow books.
+2. A book can only be borrowed if it is available (i.e., not currently borrowed).
+3. A user can borrow up to 3 books at a time.
+4. Borrowed books must be returned before a user can borrow additional books.
+5. Each book has a unique ISBN.
+6. An admin can add, remove, or update books in the system.
+
+---
+
+Functional Requirements:
+1. User Registration:
+   - Users can register with a name, email, and password.
+2. User Login:
+   - Users can log in using email and password.
+3. List Books:
+   - All users can see a list of available books.
+4. Borrow Book:
+   - A logged-in user can borrow a book if under the limit.
+5. Return Book:
+   - A logged-in user can return a previously borrowed book.
+6. View Borrowed Books:
+   - A user can view the list of currently borrowed books.
+7. Admin Panel:
+   - Admins can add, remove, and edit books.
+8. Audit Logs:
+   - The system records every borrow and return event with timestamp and user ID.
+
+---
+
+Non-Functional Requirements:
+1. Performance:
+   - The system must handle at least 100 concurrent users.
+2. Security:
+   - Passwords must be hashed using a secure algorithm (e.g., bcrypt).
+   - Role-based access control for admin routes.
+3. Reliability:
+   - The system should have > 99.9% uptime.
+4. Scalability:
+   - The architecture should allow easy addition of more features like book reservations.
+5. Maintainability:
+   - Code must follow a clean architecture with modular service layers.
+6. Logging:
+   - All requests must be logged for debugging and auditing purposes.
+7. API:
+   - RESTful API with standardized status codes and JSON responses.
+8. Documentation:
+   - An OpenAPI/Swagger spec must be provided for the API.
+
+---
+
+Technologies Suggested:
+- Node.js with Express.js (or Fastify)
+- PostgreSQL or MongoDB
+- Prisma or Mongoose for ORM
+- JWT for authentication
+- Docker for containerization
+- Jest or Vitest for testing
