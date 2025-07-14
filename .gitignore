@@ -1,6 +1,7 @@
 # Dependencies
 
 node_modules
+package-lock.json
 
 # Environment
 
@@ -9,3 +10,5 @@ node_modules
 # Build
 
 build
+
+/src/generated/prisma

@@ -1,0 +1,9 @@
+services:
+  book-wise-pg:
+    image: bitnami/postgresql
+    environment:
+      - POSTGRESQL_PASSWORD=docker
+      - POSTGRESQL_USERNAME=docker
+      - POSTGRESQL_DATABASE=bookwisepg
+    ports:
+      - 5432:5432
