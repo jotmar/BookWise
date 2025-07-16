@@ -19,7 +19,7 @@ Functional Requirements:
 1. User Registration:
    X- Users can register with a name, email, and password.
 2. User Login:
-   - Users can log in using email and password.
+   X- Users can log in using email and password.
 3. List Books:
    - All users can see a list of available books.
 4. Borrow Book:
