@@ -2,7 +2,7 @@ import { BooksRepository } from '@/repositories/books-repository'
 import { Book } from '@prisma/client'
 
 interface FetchBooksUseCaseRequest {
-	query: string
+	query?: string
 	page?: number
 }
 
@@ -13,13 +13,8 @@ interface FetchBooksUseCaseResponse {
 export class FetchBooksUseCase {
 	constructor(private booksRepository: BooksRepository) {}
 
-	async use(
-		data: FetchBooksUseCaseRequest
-	): Promise<FetchBooksUseCaseResponse> {
-		const books = await this.booksRepository.findMany(
-			data.query,
-			data.page ? data.page : 1
-		)
+	async use(query?: string, page?: number): Promise<FetchBooksUseCaseResponse> {
+		const books = await this.booksRepository.findMany(query, page)
 
 		return { books }
 	}

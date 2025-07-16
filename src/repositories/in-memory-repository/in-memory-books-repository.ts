@@ -26,9 +26,9 @@ export class InMemoryBooksRepository implements BooksRepository {
 
 		return book
 	}
-	async findMany(query: string, page = 1): Promise<Book[]> {
+	async findMany(query?: string, page = 1): Promise<Book[]> {
 		const books = this.items
-			.filter(item => item.title.includes(query))
+			.filter(item => (query ? item.title.includes(query) : true))
 			.slice((page - 1) * 20, page * 20)
 
 		return books

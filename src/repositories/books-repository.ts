@@ -4,5 +4,5 @@ export interface BooksRepository {
 	items: Book[]
 	create(data: Prisma.BookCreateInput): Promise<Book>
 	findById(data: string): Promise<Book | null>
-	findMany(query: string, page: number): Promise<Book[]>
+	findMany(query?: string, page?: number): Promise<Book[]>
 }
