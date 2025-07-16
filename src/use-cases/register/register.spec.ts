@@ -2,7 +2,7 @@ import { it, describe, expect, beforeEach } from 'vitest'
 import { InMemoryUsersRepository } from '@/repositories/in-memory-repository/in-memory-users-repository'
 import { RegisterUseCase } from '@/use-cases/register/register'
 import { UsersRepository } from '@/repositories/users-repository'
-import { UserAlreadyExistsError } from '../errors/user-already-exists-error'
+import { UserAlreadyExistsError } from '../@errors/user-already-exists-error'
 import { compare } from 'bcryptjs'
 
 describe('Register Use Case', () => {
