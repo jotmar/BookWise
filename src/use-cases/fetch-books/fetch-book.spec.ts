@@ -55,4 +55,32 @@ describe('Fetch Books UseCase', () => {
 			expect.objectContaining({ title: 'TypeScript History' })
 		])
 	})
+
+	it('should be able to only fetch available(non-borrowed) books.', async () => {
+		await booksRepository.create({
+			title: 'TypeScript History',
+			description: 'A random desc'
+		})
+
+		for (let i = 1; i <= 6; i++) {
+			await booksRepository.create({
+				title: 'JavaScriptHistory',
+				description: 'A random desc',
+				borrowed_at: new Date()
+			})
+		}
+
+		await booksRepository.create({
+			title: 'TypeScript History',
+			description: 'A random desc'
+		})
+
+		const { books } = await sut.use('', 1, true)
+
+		expect(books).toHaveLength(2)
+		expect(books).toEqual([
+			expect.objectContaining({ title: 'TypeScript History' }),
+			expect.objectContaining({ title: 'TypeScript History' })
+		])
+	})
 })

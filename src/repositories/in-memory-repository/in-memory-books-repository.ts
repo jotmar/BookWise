@@ -4,13 +4,13 @@ import { randomUUID } from 'crypto'
 
 export class InMemoryBooksRepository implements BooksRepository {
 	public items: Book[] = []
-	async create(data: Prisma.BookCreateInput): Promise<Book> {
+	async create(data: Prisma.BookUncheckedCreateInput): Promise<Book> {
 		const book: Book = {
 			id: randomUUID(),
 			title: data.title,
 			description: data.description,
-			borrowed_at: null,
-			user_id: null
+			borrowed_at: data.borrowed_at ? new Date(data.borrowed_at) : null,
+			user_id: data.user_id ? data.user_id : null
 		}
 
 		this.items.push(book)
@@ -26,9 +26,16 @@ export class InMemoryBooksRepository implements BooksRepository {
 
 		return book
 	}
-	async findMany(query?: string, page = 1): Promise<Book[]> {
+	async findMany(
+		query?: string,
+		page = 1,
+		availableOnly = false
+	): Promise<Book[]> {
 		const books = this.items
 			.filter(item => (query ? item.title.includes(query) : true))
+			.filter(item =>
+				availableOnly === true ? item.borrowed_at === null : true
+			)
 			.slice((page - 1) * 20, page * 20)
 
 		return books

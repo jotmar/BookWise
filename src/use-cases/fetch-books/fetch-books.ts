@@ -13,8 +13,16 @@ interface FetchBooksUseCaseResponse {
 export class FetchBooksUseCase {
 	constructor(private booksRepository: BooksRepository) {}
 
-	async use(query?: string, page?: number): Promise<FetchBooksUseCaseResponse> {
-		const books = await this.booksRepository.findMany(query, page)
+	async use(
+		query?: string,
+		page?: number,
+		availableOnly?: boolean
+	): Promise<FetchBooksUseCaseResponse> {
+		const books = await this.booksRepository.findMany(
+			query,
+			page,
+			availableOnly
+		)
 
 		return { books }
 	}
