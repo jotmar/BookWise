@@ -17,6 +17,12 @@ export class InMemoryBooksRepository implements BooksRepository {
 
 		return book
 	}
+
+	async remove(id: string) {
+		const bookIndex = this.items.findIndex(item => item.id === id)
+		this.items.splice(bookIndex, 1)
+	}
+
 	async findById(id: string): Promise<Book | null> {
 		const book = this.items.find(item => item.id === id)
 
