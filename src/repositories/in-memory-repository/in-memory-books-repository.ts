@@ -18,6 +18,12 @@ export class InMemoryBooksRepository implements BooksRepository {
 		return book
 	}
 
+	async save(book: Book): Promise<Book> {
+		const index = this.items.findIndex(item => item.id === book.id)
+		this.items[index] = book
+		return book
+	}
+
 	async remove(id: string) {
 		const bookIndex = this.items.findIndex(item => item.id === id)
 		this.items.splice(bookIndex, 1)
