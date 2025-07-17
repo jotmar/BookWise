@@ -40,4 +40,14 @@ export class InMemoryBooksRepository implements BooksRepository {
 
 		return books
 	}
+
+	async findByTittle(title: string): Promise<Book | null> {
+		const book = this.items.find(item => item.title === title)
+
+		if (!book) {
+			return null
+		}
+
+		return book
+	}
 }
