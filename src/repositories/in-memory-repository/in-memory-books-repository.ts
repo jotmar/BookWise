@@ -62,4 +62,10 @@ export class InMemoryBooksRepository implements BooksRepository {
 
 		return book
 	}
+
+	async findByUserId(id: string): Promise<Book[]> {
+		const books = this.items.filter(item => item.user_id === id)
+
+		return books
+	}
 }

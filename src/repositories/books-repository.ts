@@ -7,6 +7,7 @@ export interface BooksRepository {
 	remove(id: string): Promise<void>
 	findById(data: string): Promise<Book | null>
 	findByTittle(title: string): Promise<Book | null>
+	findByUserId(id: string): Promise<Book[]>
 	findMany(
 		query?: string,
 		page?: number,
