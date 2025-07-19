@@ -4,6 +4,7 @@ import { Book } from '@prisma/client'
 import { ResourceNotFoundError } from '../@errors/resource-not-found-error'
 import { ReturnBorrowedBooksError } from '../@errors/return-borrowed-books-error'
 import { AlreadyBorrowedError } from '../@errors/already-borrowed-error'
+import { BorrowLimitError } from '../@errors/borrow-limit-error'
 
 interface BorrowBookUseCaseRequest {
 	userId: string
@@ -21,6 +22,10 @@ export class BorrowBookUseCase {
 		data: BorrowBookUseCaseRequest
 	): Promise<BorrowBookUseCaseResponse> {
 		const books = []
+
+		if (data.booksId.length > 3) {
+			throw new BorrowLimitError()
+		}
 
 		const checkIfUserHasBorrowedBooks = await this.booksRepository.findByUserId(
 			data.userId

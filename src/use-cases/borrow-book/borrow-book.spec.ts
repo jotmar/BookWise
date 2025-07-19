@@ -4,6 +4,9 @@ import { BooksRepository } from '@/repositories/books-repository'
 import { InMemoryBooksRepository } from '@/repositories/in-memory-repository/in-memory-books-repository'
 import { ReturnBorrowedBooksError } from '../@errors/return-borrowed-books-error'
 import { AlreadyBorrowedError } from '../@errors/already-borrowed-error'
+import { string } from 'zod'
+import { ResourceNotFoundError } from '../@errors/resource-not-found-error'
+import { BorrowLimitError } from '../@errors/borrow-limit-error'
 
 describe('Borrow Book UseCase', () => {
 	let sut: BorrowBookUseCase
@@ -82,5 +85,34 @@ describe('Borrow Book UseCase', () => {
 				booksId: [book.id]
 			})
 		}).rejects.toBeInstanceOf(AlreadyBorrowedError)
+	})
+
+	it('should not be possible to borrow an inexistent book', async () => {
+		await expect(async () => {
+			await sut.use({
+				userId: 'user-01',
+				booksId: ['inexistent-id']
+			})
+		}).rejects.toBeInstanceOf(ResourceNotFoundError)
+	})
+
+	it('should not be possible to borrow more than 3 books', async () => {
+		const booksId: string[] = []
+
+		for (let i = 0; i <= 3; i++) {
+			const book = await booksRepository.create({
+				title,
+				description
+			})
+
+			booksId.push(book.id)
+		}
+
+		await expect(async () => {
+			await sut.use({
+				userId: 'user-01',
+				booksId
+			})
+		}).rejects.toBeInstanceOf(BorrowLimitError)
 	})
 })
