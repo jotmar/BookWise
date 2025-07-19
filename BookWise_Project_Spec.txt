@@ -23,11 +23,11 @@ Functional Requirements:
 3. List Books:
    X- All users can see a list of available books.
 4. Borrow Book:
-   - A logged-in user can borrow a book if under the limit.
+   X- A logged-in user can borrow a book if under the limit.
 5. Return Book:
-   - A logged-in user can return a previously borrowed book.
+   X- A logged-in user can return a previously borrowed book.
 6. View Borrowed Books:
-   - A user can view the list of currently borrowed books.
+   X- A user can view the list of currently borrowed books.
 7. Admin Panel:
    X- Admins can add, remove, and edit books.
 8. Audit Logs:
