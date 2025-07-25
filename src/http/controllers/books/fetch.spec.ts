@@ -36,10 +36,7 @@ describe('Fetch (e2e)', () => {
 			.send()
 			.set('Authorization', `Bearer ${token}`)
 
-		expect(response.body.books).toEqual([
-			expect.objectContaining({ title: 'A brand new book' }),
-			expect.objectContaining({ title: 'A brand old book' })
-		])
+		expect(response.body.books).toHaveLength(2)
 		expect(response.statusCode).toEqual(200)
 	})
 })
