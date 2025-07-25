@@ -4,12 +4,15 @@ import { verifyJwt } from '@/http/middlewares/verify-jwt'
 import { edit } from './edit'
 import { remove } from './remove'
 import { fetchBooks } from './fetch'
+import { borrow } from './borrow'
 
 export async function booksRouter(app: FastifyInstance) {
 	/* Authenticated Only */
 	/*  */
 
 	app.get('/books', { preHandler: [verifyJwt] }, fetchBooks)
+
+	app.post('/books/borrow', { preHandler: [verifyJwt] }, borrow)
 
 	/* Admin Only */
 	/*  */
