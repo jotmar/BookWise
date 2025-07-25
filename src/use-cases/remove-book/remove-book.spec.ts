@@ -3,6 +3,7 @@ import { RemoveBookUseCase } from './remove-book'
 import { BooksRepository } from '@/repositories/books-repository'
 import { InMemoryBooksRepository } from '@/repositories/in-memory-repository/in-memory-books-repository'
 import { hasUncaughtExceptionCaptureCallback } from 'process'
+import { ResourceNotFoundError } from '../@errors/resource-not-found-error'
 
 describe('Remove Book UseCase', () => {
 	let sut: RemoveBookUseCase
@@ -33,5 +34,13 @@ describe('Remove Book UseCase', () => {
 		})
 
 		expect(booksRepository.items).toHaveLength(1)
+	})
+
+	it('should not be possible to remove an inexistent book', async () => {
+		await expect(async () => {
+			await sut.use({
+				id: 'inexistent-book'
+			})
+		}).rejects.toBeInstanceOf(ResourceNotFoundError)
 	})
 })
