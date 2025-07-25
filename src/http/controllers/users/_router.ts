@@ -1,5 +1,6 @@
 import { FastifyInstance } from 'fastify'
 import { register } from './register'
+import { authenticate } from './authenticate'
 
 export async function usersRouter(app: FastifyInstance) {
 	/* Register Route */
@@ -9,5 +10,5 @@ export async function usersRouter(app: FastifyInstance) {
 	/* Auth Route */
 	/*  */
 
-	/* 	app.post('/session') */
+	app.post('/session', authenticate)
 }
