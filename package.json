@@ -11,7 +11,9 @@
   "devDependencies": {
     "@biomejs/biome": "2.1.1",
     "@types/node": "24.0.13",
+    "@types/supertest": "6.0.3",
     "prisma": "6.11.1",
+    "supertest": "7.1.4",
     "tsup": "8.5.0",
     "tsx": "4.20.3",
     "typescript": "5.8.3",
@@ -25,7 +27,11 @@
     "dev": "npx tsx watch ./src/server.ts",
     "start": "node ./build/server.js",
     "build": "npx tsup",
-    "test:watch": "vitest --project unit"
+    "test": "vitest run --project unit",
+    "test:watch": "vitest --project unit",
+    "test:e2e": "vitest run --project e2e",
+    "test:e2e:watch": "vitest --project e2e"
+
   },
   "keywords": [],
   "author": "",

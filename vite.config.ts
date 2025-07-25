@@ -12,6 +12,14 @@ export default defineConfig({
 					dir: './src/use-cases/',
 					environment: 'node'
 				}
+			},
+			{
+				extends: true,
+				test: {
+					name: 'e2e',
+					dir: './src/http/controllers',
+					environment: './prisma/prisma-test-environment/setup.ts'
+				}
 			}
 		]
 	}
