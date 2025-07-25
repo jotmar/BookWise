@@ -3,7 +3,7 @@ import request from 'supertest'
 import { app } from '@/app'
 import { registerAndAuthenticate } from '@/utils/test/register-authenticate'
 
-describe('Register (e2e)', () => {
+describe('Edit (e2e)', () => {
 	beforeEach(async () => {
 		await app.ready()
 	})

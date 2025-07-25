@@ -3,7 +3,7 @@ import request from 'supertest'
 import { app } from '@/app'
 import { registerAndAuthenticate } from '@/utils/test/register-authenticate'
 
-describe('Create (e2e)', () => {
+describe('Remove (e2e)', () => {
 	beforeEach(async () => {
 		await app.ready()
 	})
@@ -12,9 +12,9 @@ describe('Create (e2e)', () => {
 		await app.close()
 	})
 
-	it('should be possible to create a book', async () => {
+	it('should be possible to remove a book', async () => {
 		const { token } = await registerAndAuthenticate()
-		const response = await request(app.server)
+		const createBookResponse = await request(app.server)
 			.post('/books')
 			.send({
 				title: 'A brand new book',
@@ -22,9 +22,13 @@ describe('Create (e2e)', () => {
 			})
 			.set('Authorization', `Bearer ${token}`)
 
-		expect(response.statusCode).toEqual(201)
-		expect(response.body.book).toEqual(
-			expect.objectContaining({ id: expect.any(String) })
-		)
+		const { id } = createBookResponse.body.book
+
+		const response = await request(app.server)
+			.delete(`/books/${id}`)
+			.send()
+			.set('Authorization', `Bearer ${token}`)
+
+		expect(response.statusCode).toEqual(204)
 	})
 })
