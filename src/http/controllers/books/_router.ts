@@ -6,6 +6,7 @@ import { remove } from './remove'
 import { fetchBooks } from './fetch'
 import { borrow } from './borrow'
 import { fetchBorrowed } from './fetch-borrowed'
+import { returnBorrowed } from './return-books'
 
 export async function booksRouter(app: FastifyInstance) {
 	/* Authenticated Only */
@@ -16,6 +17,12 @@ export async function booksRouter(app: FastifyInstance) {
 	app.get('/books/borrowed', { preHandler: [verifyJwt] }, fetchBorrowed)
 
 	app.post('/books/borrow', { preHandler: [verifyJwt] }, borrow)
+
+	app.post(
+		'/books/borrowed/return',
+		{ preHandler: [verifyJwt] },
+		returnBorrowed
+	)
 
 	/* Admin Only */
 	/*  */
