@@ -8,7 +8,6 @@ export async function fetchBorrowed(
 	try {
 		const fetchBorrowedUseCase = makeFetchBorrowedUseCase()
 
-		console.log(request.user.sub)
 		const { books } = await fetchBorrowedUseCase.use({
 			userId: request.user.sub
 		})

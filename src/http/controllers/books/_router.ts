@@ -7,29 +7,34 @@ import { fetchBooks } from './fetch'
 import { borrow } from './borrow'
 import { fetchBorrowed } from './fetch-borrowed'
 import { returnBorrowed } from './return-books'
+import { verifyRole } from '@/http/middlewares/verify-role'
 
 export async function booksRouter(app: FastifyInstance) {
 	/* Authenticated Only */
 	/*  */
 
-	app.get('/books', { preHandler: [verifyJwt] }, fetchBooks)
+	app.addHook('onRequest', verifyJwt)
 
-	app.get('/books/borrowed', { preHandler: [verifyJwt] }, fetchBorrowed)
+	app.get('/books', fetchBooks)
 
-	app.post('/books/borrow', { preHandler: [verifyJwt] }, borrow)
+	app.get('/books/borrowed', fetchBorrowed)
+
+	app.post('/books/borrow', borrow)
 
 	app.post(
 		'/books/borrowed/return',
-		{ preHandler: [verifyJwt] },
+
 		returnBorrowed
 	)
 
 	/* Admin Only */
 	/*  */
 
-	app.post('/books', { preHandler: [verifyJwt] }, create)
+	app.addHook('onRequest', verifyRole('ADMIN'))
 
-	app.put('/books/:id', { preHandler: [verifyJwt] }, edit)
+	app.post('/books', create)
 
-	app.delete('/books/:id', { preHandler: [verifyJwt] }, remove)
+	app.put('/books/:id', edit)
+
+	app.delete('/books/:id', remove)
 }

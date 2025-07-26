@@ -1,5 +1,6 @@
 import request from 'supertest'
 import { app } from '@/app'
+import { prisma } from '@/lib/prisma'
 
 export async function registerAndAuthenticate() {
 	const [name, email, password] = ['John Doe', 'johndoe@example.com', '123456']
@@ -8,6 +9,15 @@ export async function registerAndAuthenticate() {
 		name,
 		email,
 		password
+	})
+
+	await prisma.user.update({
+		where: {
+			email
+		},
+		data: {
+			role: 'ADMIN'
+		}
 	})
 
 	const response = await request(app.server).post('/session').send({
